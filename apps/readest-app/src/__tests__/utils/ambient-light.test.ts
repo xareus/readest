@@ -65,21 +65,21 @@ describe('resolveThemeIsDarkMode', () => {
 });
 
 describe('nextThemeMode', () => {
-  it('cycles Auto → Light → Dark → Auto without ambient', () => {
-    expect(nextThemeMode('auto', false)).toBe('light');
+  it('toggles between light and dark', () => {
     expect(nextThemeMode('light', false)).toBe('dark');
-    expect(nextThemeMode('dark', false)).toBe('auto');
-  });
-
-  it('includes Ambient Mode when the sensor is available', () => {
-    expect(nextThemeMode('auto', true)).toBe('light');
+    expect(nextThemeMode('dark', true)).toBe('light');
     expect(nextThemeMode('light', true)).toBe('dark');
-    expect(nextThemeMode('dark', true)).toBe('ambient');
-    expect(nextThemeMode('ambient', true)).toBe('auto');
+    expect(nextThemeMode('dark', false)).toBe('light');
   });
 
-  it('treats ambient as auto when the sensor is unavailable', () => {
-    expect(nextThemeMode('ambient', false)).toBe('light');
+  it('resolves auto by the effective dark flag', () => {
+    expect(nextThemeMode('auto', false)).toBe('dark');
+    expect(nextThemeMode('auto', true)).toBe('light');
+  });
+
+  it('resolves ambient by the effective dark flag', () => {
+    expect(nextThemeMode('ambient', false)).toBe('dark');
+    expect(nextThemeMode('ambient', true)).toBe('light');
   });
 });
 

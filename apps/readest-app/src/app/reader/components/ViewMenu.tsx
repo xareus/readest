@@ -68,7 +68,7 @@ const ViewMenu: React.FC<ViewMenuProps> = ({
   const viewSettings = getViewSettings(bookKey)!;
   const viewState = getViewState(bookKey);
 
-  const { themeMode, setThemeMode } = useThemeStore();
+  const { themeMode, isDarkMode, setThemeMode } = useThemeStore();
   const [isScrolledMode, setScrolledMode] = useState(viewSettings!.scrolled);
   const [scrolledDirection, setScrolledDirection] = useState(
     viewSettings!.scrolledDirection ?? 'vertical',
@@ -135,7 +135,7 @@ const ViewMenu: React.FC<ViewMenuProps> = ({
   };
 
   const cycleThemeMode = () => {
-    setThemeMode(nextThemeMode(themeMode, !!appService?.hasAmbientLightSensor));
+    setThemeMode(nextThemeMode(themeMode, isDarkMode));
   };
 
   const handleFullScreen = () => {

@@ -78,7 +78,7 @@ export const ColorPanel: React.FC<ColorPanelProps> = ({
   );
 
   const cycleThemeMode = () => {
-    setThemeMode(nextThemeMode(themeMode, !!appService?.hasAmbientLightSensor));
+    setThemeMode(nextThemeMode(themeMode, isDarkMode));
   };
 
   const classes = clsx(

@@ -55,7 +55,7 @@ interface CommandPaletteProviderProps {
 export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ children }) => {
   const _ = useTranslation();
   const { envConfig, appService } = useEnv();
-  const { themeMode, setThemeMode } = useThemeStore();
+  const { themeMode, isDarkMode, setThemeMode } = useThemeStore();
   const { settings, setSettingsDialogOpen, setActiveSettingsItemId } = useSettingsStore();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -65,8 +65,8 @@ export const CommandPaletteProvider: React.FC<CommandPaletteProviderProps> = ({ 
 
   // action handlers
   const toggleTheme = useCallback(() => {
-    setThemeMode(nextThemeMode(themeMode, !!appService?.hasAmbientLightSensor));
-  }, [themeMode, setThemeMode, appService?.hasAmbientLightSensor]);
+    setThemeMode(nextThemeMode(themeMode, isDarkMode));
+  }, [themeMode, isDarkMode, setThemeMode]);
 
   const toggleFullscreen = useCallback(() => {
     tauriHandleToggleFullScreen();

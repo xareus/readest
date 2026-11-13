@@ -49,25 +49,24 @@ export function resolveThemeIsDarkMode(
   return systemIsDarkMode;
 }
 
-const THEME_MODES_BASE: ThemeMode[] = ['auto', 'light', 'dark'];
-const THEME_MODES_WITH_AMBIENT: ThemeMode[] = ['auto', 'light', 'dark', 'ambient'];
-
 /**
- * Cycle Auto → Light → Dark → (Ambient Mode) → Auto.
+ * Toggle between Light and Dark only. The quick toggles (header button, view
+ * menu, command palette) intentionally skip Auto and Ambient so a single tap
+ * gives a deterministic light/dark switch; full mode selection stays in
+ * Settings → Theme.
  *
  * Receives:
  * - current: active ThemeMode.
- * - hasAmbient: whether Ambient Mode is offered on this device.
+ * - isDarkMode: effective dark flag, so toggling from Auto/Ambient switches
+ *   to the opposite of what is currently rendered.
  *
  * Returns:
- * - the next ThemeMode in the cycle.
+ * - the next ThemeMode ('light' or 'dark').
  */
-export function nextThemeMode(current: ThemeMode, hasAmbient: boolean): ThemeMode {
-  const modes = hasAmbient ? THEME_MODES_WITH_AMBIENT : THEME_MODES_BASE;
-  const effective: ThemeMode = current === 'ambient' && !hasAmbient ? 'auto' : current;
-  const idx = modes.indexOf(effective);
-  const nextIdx = idx < 0 ? 0 : (idx + 1) % modes.length;
-  return modes[nextIdx] ?? 'auto';
+export function nextThemeMode(current: ThemeMode, isDarkMode: boolean): ThemeMode {
+  if (current === 'light') return 'dark';
+  if (current === 'dark') return 'light';
+  return isDarkMode ? 'light' : 'dark';
 }
 
 /**

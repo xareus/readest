@@ -31,7 +31,7 @@ import QuickActionMenu from './annotator/QuickActionMenu';
 import SidebarToggler from './SidebarToggler';
 import BookmarkToggler from './BookmarkToggler';
 import NotebookToggler from './NotebookToggler';
-import TranslationToggler from './TranslationToggler';
+import ThemeToggler from './ThemeToggler';
 import DuoBookModeToggler from './DuoBookModeToggler';
 import ViewMenu from './ViewMenu';
 import SyncInfoDialog from './SyncInfoDialog';
@@ -291,7 +291,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
               <VscLibrary size={iconSize18} className='fill-base-content' />
             </button>
             <BookmarkToggler bookKey={bookKey} />
-            <TranslationToggler bookKey={bookKey} />
+            <ThemeToggler />
             <DuoBookModeToggler bookKey={bookKey} />
           </div>
           {enableAnnotationQuickActions && (

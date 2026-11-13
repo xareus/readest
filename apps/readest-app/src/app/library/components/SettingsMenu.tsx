@@ -53,7 +53,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ onPullLibrary, setIsDropdow
   const { envConfig, appService } = useEnv();
   const { user } = useAuth();
   const { userProfilePlan, quotas } = useQuotaStats(true);
-  const { themeMode, setThemeMode } = useThemeStore();
+  const { themeMode, isDarkMode, setThemeMode } = useThemeStore();
   const { settings, setSettingsDialogOpen } = useSettingsStore();
   const [isAlwaysOnTop, setIsAlwaysOnTop] = useState(settings.alwaysOnTop);
   const [isOpenLastBooks, setIsOpenLastBooks] = useState(settings.openLastBooks);
@@ -128,7 +128,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({ onPullLibrary, setIsDropdow
   };
 
   const cycleThemeMode = () => {
-    setThemeMode(nextThemeMode(themeMode, !!appService?.hasAmbientLightSensor));
+    setThemeMode(nextThemeMode(themeMode, isDarkMode));
   };
 
   const handleFullScreen = () => {
